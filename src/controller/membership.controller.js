@@ -3,6 +3,7 @@ import { successResponse, errorResponse } from "../utils/response.js";
 import { generateToken } from "../middlewares/auth.js";
 import { v2 as cloudinary } from "cloudinary";
 
+import bcrypt from "bcryptjs";
 import validator from "validator";
 
 export const membershipController = {
