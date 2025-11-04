@@ -1,7 +1,6 @@
 import pool from "../config/db.js";
 
 export const transactionModel = {
-
   // Mengambil balance by email
   async getBalanceByEmail(email) {
     const query =
@@ -90,7 +89,7 @@ export const transactionModel = {
           WHEN t.transaction_type = 'TOPUP' THEN 'Top Up balance'
           ELSE COALESCE(t.service_name, '')
         END AS service_name,
-        t.total_amount,
+        CAST(t.total_amount AS INTEGER) AS total_amount,
         t.created_on
       FROM transactions t
       JOIN users u ON t.user_id = u.id
