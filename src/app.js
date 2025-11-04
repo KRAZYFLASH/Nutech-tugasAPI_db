@@ -8,7 +8,10 @@ const app = express();
 
 // Middlewares
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: '*',
+  credentials: true
+}));
 
 // Routes
 app.use("/", membershipRouter);
@@ -16,7 +19,7 @@ app.use("/", informationRouter);
 app.use("/", transactionRouter);
 
 app.get('/', (req,res)=>{
-    res.send('API WORKING Great')
+    res.send('Muhammad Fakhri-Tugas API is running')
 })
 
 export default app;
