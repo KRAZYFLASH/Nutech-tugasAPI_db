@@ -177,7 +177,7 @@ export const transactionController = {
 
       // Ambil offset dan limit
       const offset = parseInt(req.query.offset) || 0;
-      const limit = parseInt(req.query.limit) || null;
+      const limit = parseInt(req.query.limit) || 0;
 
       // Ambil data transaksi
       const transactions = await transactionModel.getTransactionHistory(
