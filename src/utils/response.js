@@ -3,6 +3,7 @@ export const successResponse = (res, statusCode, message, data = null) => {
   const response = {
     status: statusCode,
     message: message,
+    data: null,
   };
 
   if (data !== null) {

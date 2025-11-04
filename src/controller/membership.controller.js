@@ -11,19 +11,28 @@ export const membershipController = {
     try {
       const { email, password, first_name, last_name } = req.body;
 
+      const requiredFields = { email, first_name, last_name, password };
+
+      // Cek input
+      for (const [key, value] of Object.entries(requiredFields)) {
+        if (!value || String(value).trim() === "") {
+          return errorResponse(res, 400, 102, `Parameter ${key} harus diisi`);
+        }
+      }
+
       // Validator
       if (!validator.isEmail(email)) {
-        return errorResponse(res, 102, "Paramter email tidak sesuai format");
+        return errorResponse(res, 400, 102, "Paramter email tidak sesuai format");
       }
 
       if (!validator.isLength(password, { min: 8 })) {
-        return errorResponse(res, 102, "Password length minimal 8 karakter");
+        return errorResponse(res, 400, 102, "Password length minimal 8 karakter");
       }
 
       // Cek email terdaftar
       const existingUser = await membershipModel.findUserByEmail(email);
       if (existingUser) {
-        return errorResponse(res, 102, "Email sudah terdaftar");
+        return errorResponse(res, 400, 102, "Email sudah terdaftar");
       }
 
       // Hash password
@@ -38,7 +47,7 @@ export const membershipController = {
         last_name,
       });
 
-      return successResponse(res, 200, "Registrasi berhasil silahkan login", null);
+      return successResponse(res, 0, "Registrasi berhasil silahkan login", null);
     } catch (error) {
       return errorResponse(res, 500, "Terjadi kesalahan pada server");
     }
@@ -48,9 +57,18 @@ export const membershipController = {
     try {
       const { email, password } = req.body;
 
+      const requiredFields = { email, password };
+
+      // Cek input
+      for (const [key, value] of Object.entries(requiredFields)) {
+        if (!value || String(value).trim() === "") {
+          return errorResponse(res, 400, 102, `Parameter ${key} harus diisi`);
+        }
+      }
+
       // Validator
       if (!email || !password) {
-        return errorResponse(res, 400, 102, "Parameter email harus di isi");
+        return errorResponse(res, 400, 102, "Parameter email atau password harus di isi");
       }
 
       if (!validator.isEmail(email)) {
@@ -83,7 +101,7 @@ export const membershipController = {
         return errorResponse(res, 404, null, "User tidak ditemukan");
       }
 
-      return successResponse(res, 0, "Profile user ditemukan", userProfile);
+      return successResponse(res, 0, "Sukses", userProfile);
     } catch (error) {
       return errorResponse(res, 500, 400, "Terjadi kesalahan pada server");
     }
@@ -110,7 +128,9 @@ export const membershipController = {
         return errorResponse(res, 404, null,"User tidak ditemukan");
       }
 
-      return successResponse(res, 200, 0, "update profile berhasil", updatedProfile);
+      console.log(updatedProfile);
+
+      return successResponse(res, 0, "update profile berhasil", updatedProfile);
     } catch (error) {
       return errorResponse(res, 500, null, "Terjadi kesalahan pada server");
     }
@@ -150,7 +170,9 @@ export const membershipController = {
         imageUrl
       );
 
-      return successResponse(res, 200, 0, "Upload profile image berhasil", { profile_image: updated });
+      console.log(updated);
+
+      return successResponse(res, 0, "Upload profile image berhasil", updated);
     } catch (err) {
       return errorResponse(res, 500, "Terjadi kesalahan pada server");
     }

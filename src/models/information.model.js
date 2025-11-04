@@ -12,7 +12,12 @@ export const getInformation = {
     const query =
       "SELECT service_code, service_name, service_icon, service_tarif FROM services ORDER BY service_name ASC";
     const result = await pool.query(query);
-    return result.rows;
+
+    // mengubah nilai service_tarif ke integer
+    return result.rows.map((service) => ({
+      ...service,
+      service_tarif: parseInt(service.service_tarif),
+    }));
   },
 };
 

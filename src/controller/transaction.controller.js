@@ -13,7 +13,7 @@ export const transactionController = {
         return successResponse(res, 200, "Sukses", { balance: 0 });
       }
 
-      return successResponse(res, 200, "Get Balance Berhasil", balanceData);
+      return successResponse(res, 0, "Get Balance Berhasil", balanceData);
 
     } catch (error) {
       return errorResponse(res, 500, 108, "Terjadi kesalahan pada server");
