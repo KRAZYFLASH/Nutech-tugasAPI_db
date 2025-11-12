@@ -1,20 +1,13 @@
 export default {
-  testEnvironment: 'node',
-  coverageDirectory: 'coverage',
-  collectCoverageFrom: [
-    'src/**/*.js',
-    '!src/server.js',
-    '!src/config/**'
-  ],
-  testMatch: [
-    '**/tests/**/*.test.js',
-    '**/tests/**/*.spec.js'
-  ],
-  setupFilesAfterEnv: ['<rootDir>/tests/setup.js'],
+  testEnvironment: "node",
+  coverageDirectory: "coverage",
+  collectCoverageFrom: ["src/**/*.js", "!src/server.js", "!src/config/**"],
+  testMatch: ["**/tests/**/*.test.js", "**/tests/**/*.spec.js"],
+  setupFilesAfterEnv: ["<rootDir>/tests/setup.js"],
   verbose: true,
   forceExit: true,
   clearMocks: true,
   resetMocks: true,
   restoreMocks: true,
-  testTimeout: 10000
+  testTimeout: 10000,
 };

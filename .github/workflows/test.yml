@@ -1,0 +1,36 @@
+# Workflow CI Sederhana - Hanya Testing
+# File ini akan otomatis menjalankan test setiap kali kamu push code
+
+name: Test
+
+# Kapan workflow ini dijalankan?
+on:
+  push:              # Setiap push ke branch apapun
+  pull_request:      # Setiap ada pull request
+
+# Job yang akan dijalankan
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest    # Menggunakan server Ubuntu
+    
+    steps:
+      # Step 1: Download code dari repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      # Step 2: Install Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'    # Menggunakan Node.js versi 20
+      
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm install
+      
+      # Step 4: Run tests
+      - name: Run tests
+        run: npm test
+        env:
+          JWT_SECRET: test-secret-for-ci-testing
